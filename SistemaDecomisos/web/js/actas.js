@@ -43,7 +43,7 @@ function enviarActa() {
     var lugar = new Lugar(new Distrito(pDistrito.selectedIndex, pDistrito.options[pDistrito.selectedIndex].value), "Por el parque central");
     var fechaDecomiso = $('#fecha').val();
     var horaDecomiso = $('#hora').val();
-    var iDate = formatDate(new Date().getUTCDate());
+    var iDate = formatDate(new Date().getUTCDate()); 
     var cedulaInteresado = $('#id_interesado').val();
     cedulaInteresado = cedulaInteresado.split("-").join("");
     var interesado = new Interesado(1, $('#fechaNac').val() === "" ? iDate : $('#fechaNac').val(), lugar,
