@@ -32,7 +32,21 @@ Author     : Mery Zúñiga
         <link href="css/forms.css" rel="stylesheet">
         <link rel="shortcut icon" href="media/images/logo2.ico" type="image/x-icon" />
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
+        <link href="fileinput/css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
+        <link href="fileinput/themes/explorer/theme.css" media="all" rel="stylesheet" type="text/css"/> 
+        <style>
+            .kv-avatar .file-preview-frame,.kv-avatar .file-preview-frame:hover {
+                margin: 0;
+                padding: 0;
+                border: none;
+                box-shadow: none;
+                text-align: center;
+            }
+            .kv-avatar .file-input {
+                display: table-cell;
+                max-width: 220px;
+            }
+        </style>
     </head>
 
     <body class="nav-md">
@@ -95,7 +109,7 @@ Author     : Mery Zúñiga
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="distrito">Dirección específica del decomiso<span class="required">*</span>
                                             </label>
                                             <div class="col-md-6 col-xs-10" id="groupLugar">
-                                                <textarea required class="form-control" id="direccion" type="text"></textarea>
+                                                <textarea required class="form-control" id="direccion"></textarea>
                                             </div>
                                         </div>
                                         <div class="form-group status"  id="groupFecha">
@@ -139,7 +153,7 @@ Author     : Mery Zúñiga
                                         </div>
 
 
-                                        <div class="form-group status" hidden="true" id="info_testigo_policia">
+                                        <div class="form-group status" hidden id="info_testigo_policia">
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="info_policia">Identificacion del Policía Municipal testigo<span class="required">*</span>
                                             </label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
@@ -150,7 +164,7 @@ Author     : Mery Zúñiga
                                                 </div>
                                             </div>
                                         </div>
-                                        <div id="info_testigo_civil" hidden="true"> 
+                                        <div id="info_testigo_civil" hidden> 
                                             <div class="form-group status" id="nombre_civil">
                                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nombre_testigo">Nombre del testigo<span class="required">*</span>
                                                 </label>
@@ -172,6 +186,31 @@ Author     : Mery Zúñiga
                                             <div class="clearfix"></div>
                                         </div>
                                         <span class="section">Datos del Interesado</span>
+
+                                        <div class="form-group status" id="groupFotoInteresado">           
+                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                                <div id="kv-avatar-errors-2" class="center-block" style="width:800px;display:none"></div>
+                                                <div class="kv-avatar center-block" style="width:200px">
+                                                    <input id="avatar-2" name="avatar-2" type="file" class="file-loading">
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="form-group status" id="groupIdInteresado">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_interesado">Identificación del interesado</label>
+                                            <div class="col-md-6 col-sm-6">
+                                                <label class="radio-inline">
+                                                    <input id="nac" type="radio" name="idI" value="nac" checked="checked"> Nacional<br>
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input id="ext" type="radio" name="idI" value="ext"> Extranjero<br>
+                                                </label>
+                                            </div>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input type="text" id="id_interesado" class="form-control col-md-7 col-xs-12">
+                                                <span class="fa fa-indent form-control-feedback right" aria-hidden="true"></span>
+                                            </div>
+                                        </div>
                                         <div class="form-group status" id="groupApellido1Interesado">
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="apellido1_interesado">Primer Apellido </label>              
                                             <div class="col-md-6 col-sm-6 col-xs-12">
@@ -193,21 +232,7 @@ Author     : Mery Zúñiga
                                                 <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
                                             </div>
                                         </div>
-                                        <div class="form-group status" id="groupIdInteresado">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_interesado">Identificación del interesado</label>
-                                            <div class="col-md-6 col-sm-6">
-                                                <label class="radio-inline">
-                                                    <input id="nac" type="radio" name="idI" value="nac" checked="checked"> Nacional<br>
-                                                </label>
-                                                <label class="radio-inline">
-                                                    <input id="ext" type="radio" name="idI" value="ext"> Extranjero<br>
-                                                </label>
-                                            </div>
-                                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <input type="text" id="id_interesado" class="form-control col-md-7 col-xs-12">
-                                                <span class="fa fa-indent form-control-feedback right" aria-hidden="true"></span>
-                                            </div>
-                                        </div>
+                                        
                                         <div class="form-group status"  id="groupFechaNac">
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="fecha_Nac">Fecha de nacimiento del interesado</label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
@@ -372,7 +397,11 @@ Author     : Mery Zúñiga
         <script src="js/objects/Persona.js"></script>
         <script src="js/objects/Policia.js"></script>
         <script src="js/objects/Testigo.js"></script>  
-        <script src="js/objects/Usuario.js"></script>    
+        <script src="js/objects/Usuario.js"></script>  
+        <script src="fileinput/js/plugins/sortable.js" type="text/javascript"></script>
+        <script src="fileinput/js/fileinput.js" type="text/javascript"></script>
+        <script src="fileinput/js/locales/es.js" type="text/javascript"></script> 
+        <script src="fileinput/themes/explorer/theme.js" type="text/javascript"></script>
     </body>
 </html>
 

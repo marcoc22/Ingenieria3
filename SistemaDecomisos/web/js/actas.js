@@ -16,10 +16,25 @@ $(document).ready(function () {
 
     });
 
-    $(document).ready(function () {
-        $('#tags').on('autocompletechange change', function () {
-            $('#tagsname').html('You selected: ' + this.value);
-        }).change();
+    $('#tags').on('autocompletechange change', function () {
+        $('#tagsname').html('You selected: ' + this.value);
+    }).change();
+    $("#avatar-2").fileinput({
+        language: 'es',
+        overwriteInitial: true,
+        maxFileSize: 5000,
+        showClose: false,
+        showCaption: false,
+        showBrowse: false,
+        browseOnZoneClick: true,
+        removeLabel: '',
+        removeIcon: '<i class="glyphicon glyphicon-remove"></i>',
+        removeTitle: 'Cancelar o volver a cargar foto',
+        elErrorContainer: '#kv-avatar-errors-2',
+        msgErrorClass: 'alert alert-block alert-danger',
+        defaultPreviewContent: '<img src="/SistemaDecomisos/media/images/avatar.jpg" alt="Your Avatar" style="width:160px"><h6 class="text-muted">Seleccione una foto</h6>',
+        layoutTemplates: {main2: '{preview} {remove} {browse}'},
+        allowedFileExtensions: ["jpg", "png", "gif"]
     });
 });
 
@@ -43,7 +58,7 @@ function enviarActa() {
     var lugar = new Lugar(new Distrito(pDistrito.selectedIndex, pDistrito.options[pDistrito.selectedIndex].value), "Por el parque central");
     var fechaDecomiso = $('#fecha').val();
     var horaDecomiso = $('#hora').val();
-    var iDate = formatDate(new Date().getUTCDate()); 
+    var iDate = formatDate(new Date().getUTCDate());
     var cedulaInteresado = $('#id_interesado').val();
     cedulaInteresado = cedulaInteresado.split("-").join("");
     var interesado = new Interesado(1, $('#fechaNac').val() === "" ? iDate : $('#fechaNac').val(), lugar,
@@ -89,11 +104,11 @@ function checkActa() {
     }
 
     /*if ($('#id_policia').val() !== "") {
-        if (!idVerificator($('#id_policia').val(), document.getElementById('ext').checked)) {
-            bool = false;
-            errores.push("El número de identificación del policía tiene formato incorrecto.");
-        }
-    }*/
+     if (!idVerificator($('#id_policia').val(), document.getElementById('ext').checked)) {
+     bool = false;
+     errores.push("El número de identificación del policía tiene formato incorrecto.");
+     }
+     }*/
 
 //    if ($('#apellido1_interesado').val() === ""){
 //        bool = false;

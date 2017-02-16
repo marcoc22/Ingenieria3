@@ -7,6 +7,7 @@ and open the template in the editor.
     Created on : 25-oct-2016, 16:01:51
     Author     : Mery Zúñiga
 */
+
 .form-horizontal input:focus:invalid, .form-horizontal textarea:focus:invalid span{ /* when a field is considered invalid by the browser */
     /*background: #fff url(images/invalid.png) no-repeat 98% center;*/
     box-shadow: 0 0 7px #d45252;
