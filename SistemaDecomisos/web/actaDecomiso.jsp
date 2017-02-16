@@ -385,10 +385,11 @@ Author     : Mery Zúñiga
         <script src="js/forms.js"></script>
         <script src="js/multifield.js"></script>
         <script src="js/validator.js"></script>
-        <script src="js/actas.js"></script>
+        <script src="js/actaDecomiso.js"></script>
         <script src="js/Proxy.js"></script>
         <script src="js/BaseDatos.js"></script>        
         <script src="js/objects/ActaDecomiso.js"></script>
+        <script src="js/objects/ActaDonacion.js"></script>
         <script src="js/objects/Decomiso.js"></script>
         <script src="js/objects/Distrito.js"></script>
         <script src="js/objects/Funcionario.js"></script>

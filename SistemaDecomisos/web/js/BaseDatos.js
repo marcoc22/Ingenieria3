@@ -52,7 +52,14 @@ function revive(k,v) {
         }
         if (v instanceof Object && v._class == 'Decomiso'){
            return Decomiso.from(v);
-        }   
+        } 
+        if (v instanceof Object && v._class == 'ActaDonacion'){
+        
+            return ActaDonacion.from(v);
+        }
+        if (v instanceof Object && v._class == 'ActaDevolucion'){
+           return ActaDevolucion.from(v);
+        } 
     return v;
 }
 
@@ -80,6 +87,12 @@ function replacer(k,v) {
         }
         if (v instanceof Decomiso){
             return Decomiso.to(v);
+        }
+        if (v instanceof ActaDevolucion){
+            return ActaDevolucion.to(v);
+        }
+        if (v instanceof ActaDonacion){
+            return ActaDonacion.to(v);
         }
 	return v;
 }

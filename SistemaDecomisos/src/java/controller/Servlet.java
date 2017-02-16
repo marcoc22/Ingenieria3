@@ -43,6 +43,8 @@ public class Servlet extends HttpServlet {
             RuntimeTypeAdapterFactory<Jsonable> rta = RuntimeTypeAdapterFactory.of(Jsonable.class, "_class")
                     .registerSubtype(Usuario.class, "Usuario")
                     .registerSubtype(ActaDecomiso.class, "ActaDecomiso")
+                    .registerSubtype(ActaDonacion.class, "ActaDonacion")
+                    .registerSubtype(ActaDevolucion.class, "ActaDevolucion")
                     .registerSubtype(Decomiso.class, "Decomiso")
                     .registerSubtype(Funcionario.class, "Funcionario")
                     .registerSubtype(Interesado.class, "Interesado")
@@ -57,6 +59,8 @@ public class Servlet extends HttpServlet {
             Integer res;
             Model model = (Model) request.getSession().getAttribute("model");
             ActaDecomiso actaDecomiso;
+            ActaDonacion actaDonacion;
+            ActaDevolucion actaDevolucion;
             Usuario usuario;
             List<Funcionario> funcionarios;
             List<Policia> policias;
@@ -93,6 +97,30 @@ public class Servlet extends HttpServlet {
                         out.write(Integer.toString(f + 1));
                     }
                     break;
+                case "ultimaActaDonacion":
+                    int f1 = model.ultimaActaDonacion();
+                    if (f1 == -1) {
+                        out.write(Integer.toString(1));
+                    } else {
+                        out.write(Integer.toString(f1 + 1));
+                    }
+                    break;
+                case "ultimaActaDestruccion":
+                    int f2 = model.ultimaActaDestruccion();
+                    if (f2 == -1) {
+                        out.write(Integer.toString(1));
+                    } else {
+                        out.write(Integer.toString(f2 + 1));
+                    }
+                    break;
+                case "ultimaActaDevolucion":
+                    int f3 = model.ultimaActaDevolucion();
+                    if (f3 == -1) {
+                        out.write(Integer.toString(1));
+                    } else {
+                        out.write(Integer.toString(f3 + 1));
+                    }
+                    break;
                 case "guardarActa":
                     json = request.getParameter("actaDecomiso");
                     finalJson = new String(json.getBytes("iso-8859-1"), "UTF-8");
@@ -113,6 +141,43 @@ public class Servlet extends HttpServlet {
                     }
                     res = model.guardarActaDecomiso(actaDecomiso);
                     out.write(res.toString());// Se envía el objeto Usuario como json al cliente
+                    break;
+                case "guardarActaDonacion":
+                    json = request.getParameter("actaDonacion");
+                    finalJson = new String(json.getBytes("iso-8859-1"), "UTF-8");
+                    actaDonacion = gson.fromJson(finalJson, ActaDonacion.class);
+                    res = model.guardarPolicia(actaDonacion.getPolicia());
+                    res = model.guardarActaDecomiso(actaDonacion.getDecomiso());
+                    int ult = model.ultimaActaDonacion();
+                    if (ult == -1) {
+                        actaDonacion.setIdDonacion(1);
+                    } else {
+                        actaDonacion.setIdDonacion(ult + 1);
+                    }
+                    res = model.guardarActaDonacion(actaDonacion);
+                    out.write(res.toString());
+                    break;
+                case "guardarActaDevolucion":
+                    json = request.getParameter("actaDevolucion");
+                    finalJson = new String(json.getBytes("iso-8859-1"), "UTF-8");
+                    actaDevolucion = gson.fromJson(finalJson, ActaDevolucion.class);
+                    model.guardarActaDecomiso(actaDevolucion.getDecomiso());
+                    //boolean var = model.isInteresado(actaDecomiso.getInteresado());
+                    res = model.guardarInteresado(actaDevolucion.getInteresado());
+                    if (res != 2) {
+                        res = model.getIdInteresado(actaDevolucion.getInteresado().getIdentificacion());
+                        actaDevolucion.getInteresado().setIdInteresado(res);
+                    }
+                    //res = model.guardarPolicia(actaDevolucion.getPolicia());
+                    int fin4 = model.ultimaActaDevolucion();
+                    if (fin4 == -1) {
+                        actaDevolucion.setIdDevolucion(1);
+                    } else {
+                        actaDevolucion.setIdDevolucion(fin4 + 1);
+                    }
+                    //res = model.guardarActaDecomiso(actaDevolucion.getDecomiso());
+                    res = model.guardarActaDevolucion(actaDevolucion);
+                    out.write(res.toString());
                     break;
                 case "listadoFuncionarios":
                     funcionarios = model.listadoFuncionarios();

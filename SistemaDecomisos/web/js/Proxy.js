@@ -44,6 +44,44 @@ Proxy.ultimaActa = function () {
         }
     });
 };
+Proxy.ultimaActaDonacion = function () {
+    $.ajax({
+        url: "/SistemaDecomisos/Servlet?action=ultimaActaDonacion",
+        type: "POST",
+        dataType: 'text',
+        contentType: "application/x-www-form-urlencoded",
+        success: function (data) {
+            $('#nActa_donac').html(" ");
+            $('#nActa_donac').append("<bl>" + data + "</bl>");
+        }
+    });
+};
+
+Proxy.ultimaActaDestruccion = function () {
+    $.ajax({
+        url: "/SistemaDecomisos/Servlet?action=ultimaActaDestruccion",
+        type: "POST",
+        dataType: 'text',
+        contentType: "application/x-www-form-urlencoded",
+        success: function (data) {
+            $('#nActa_dest').html(" ");
+            $('#nActa_dest').append("<bl>" + data + "</bl>");
+        }
+    });
+};
+
+Proxy.ultimaActaDevolucion = function () {
+    $.ajax({
+        url: "/SistemaDecomisos/Servlet?action=ultimaActaDevolucion",
+        type: "POST",
+        dataType: 'text',
+        contentType: "application/x-www-form-urlencoded",
+        success: function (data) {
+            $('#nActa_dev').html(" ");
+            $('#nActa_dev').append("<bl>" + data + "</bl>");
+        }
+    });
+};
 Proxy.listadoFuncionarios = function () {
 
     $.ajax({
@@ -210,7 +248,56 @@ Proxy.completePolicias = function () {
             $('#id_policia').autocomplete({
                 source: names
             });
-                var appendTo = $( "#id_policia" ).autocomplete( "option", "source" );
+            var appendTo = $("#id_policia").autocomplete("option", "source");
+        }
+    });
+};
+
+Proxy.actaDonacion = function (criterio) {
+    var s = ActaDonacion.to(JSON.parse(criterio));
+    var ns = JSON.stringify(s, replacer);
+    $.ajax({
+        url: "/SistemaDecomisos/Servlet?action=guardarActaDonacion",
+        type: "POST",
+        data: {
+            actaDonacion: ns
+        },
+        dataType: 'json',
+        contentType: "application/x-www-form-urlencoded",
+        success: function (data) {
+            if (data === 2) {
+                actaDonacionModal();
+                Proxy.ultimaActaDonacion();
+            } else {
+                alert("No se guardó");
+                $("#login").html("Iniciar Sesi\u00F3n ");
+                errorLogin();
+            }
+        }
+    });
+};
+
+
+Proxy.actaDevolucion = function (criterio) {
+    var s = ActaDevolucion.to(JSON.parse(criterio));
+    var ns = JSON.stringify(s, replacer);
+    $.ajax({
+        url: "/SistemaDecomisos/Servlet?action=guardarActaDevolucion",
+        type: "POST",
+        data: {
+            actaDevolucion: ns
+        },
+        dataType: 'json',
+        contentType: "application/x-www-form-urlencoded",
+        success: function (data) {
+            if (data === 2) {
+                actaDevolucionModal();
+                Proxy.ultimaActaDevolucion();
+            } else {
+                alert("No se guardó");
+                $("#login").html("Iniciar Sesi\u00F3n ");
+                errorLogin();
+            }
         }
     });
 };

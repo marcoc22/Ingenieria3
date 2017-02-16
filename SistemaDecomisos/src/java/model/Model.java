@@ -254,6 +254,149 @@ public class Model {
         }
         return res;
     }
+    public int guardarActaDonacion(ActaDonacion acta) throws SQLException {
+        Connection con = null;
+        int res = 0;
+        try{
+            con = Pool.getConnection();
+            CallableStatement pstmt = null;
+            if(con != null) { 
+                String sql = "{call prc_ins_adonacion('" + acta.getIdDonacion()+ "',"
+                        + "'" + acta.getInstitucion() + "',"
+                        + "'" + acta.getPolicia().getIdPolicia() + "',"
+                        + "'" + acta.getDecomiso().getIdDecomiso()
+                        + "')}";
+                pstmt = con.prepareCall(sql);
+                pstmt.executeUpdate();
+                res = 2;
+            }
+        }catch (SQLException e) {
+            res = 1;
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException ex) {
+                res = 1;
+            }
+        }
+        return res;
+    }
+    public int guardarActaDevolucion(ActaDevolucion actaDevolucion) {
+        Connection con = null;
+        int res = 0;
+        try {
+            con = Pool.getConnection();
+            CallableStatement pstmt = null;
+            if (con != null) {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy");
+                String sql = "{call prc_ins_adevolucion('" + actaDevolucion.getIdDevolucion() + "',"
+                        + "'" + actaDevolucion.getPolicia().getIdPolicia()+ "',"
+                        + "'" + actaDevolucion.getDecomiso().getIdDecomiso() + "',"
+                        + "'" + actaDevolucion.getInteresado().getIdInteresado() + "',"
+                        + "'" + sdf.format(actaDevolucion.getFecha()) 
+                        + "')}";
+                pstmt = con.prepareCall(sql);
+                pstmt.executeUpdate();
+                res = 2;
+            }
+
+        } catch (SQLException e) {
+            res = 1;
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException ex) {
+                res = 1;
+            }
+        }
+        return res;
+    }
+    public int ultimaActaDonacion() {
+        Connection con = null;
+        int last = -1;
+        try {
+            con = Pool.getConnection();
+            Statement pstmt = null;
+            ResultSet rs = null;
+            if (con != null) {
+
+                String sql = "select *  from ( select ActaDonacion.*, max(IdDonacion) over () as max_pk from ActaDonacion) where IdDonacion = max_pk";
+                pstmt = con.createStatement();
+                rs = pstmt.executeQuery(sql);
+                while (rs.next()) {
+                    last = rs.getInt("max_pk");
+                }
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+        return last;
+    }
+    
+    public int ultimaActaDestruccion(){
+        Connection con = null;
+        int last = -1;
+        try {
+            con = Pool.getConnection();
+            Statement pstmt = null;
+            ResultSet rs = null;
+            if (con != null) {
+
+                String sql = "select *  from ( select ActaDestruccion.*, max(IdDestruccion) over () as max_pk from ActaDestruccion) where IdDestruccion = max_pk";
+                pstmt = con.createStatement();
+                rs = pstmt.executeQuery(sql);
+                while (rs.next()) {
+                    last = rs.getInt("max_pk");
+                }
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+        return last;
+    }
+    
+    public int ultimaActaDevolucion(){
+        Connection con = null;
+        int last = -1;
+        try {
+            con = Pool.getConnection();
+            Statement pstmt = null;
+            ResultSet rs = null;
+            if (con != null) {
+
+                String sql = "select *  from ( select ActaDevolucion.*, max(IdDevolucion) over () as max_pk from ActaDevolucion) where IdDevolucion = max_pk";
+                pstmt = con.createStatement();
+                rs = pstmt.executeQuery(sql);
+                while (rs.next()) {
+                    last = rs.getInt("max_pk");
+                }
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+        return last;
+    }
 
     public int guardarInteresado(Interesado interesado) {
         Connection con = null;
