@@ -2,6 +2,7 @@ var errores = new Array();
 
 $(document).ready(function () {
     $('[data-rel="chosen"],[rel="chosen"]').chosen();
+    $("#id_interesado").mask("9-9999-9999");
     $('#enviarActa_Dec').click(function () {
         if (checkActa())
             enviarActa();
@@ -43,8 +44,10 @@ function enviarActa() {
     var fechaDecomiso = $('#fecha').val();
     var horaDecomiso = $('#hora').val();
     var iDate = formatDate(new Date().getUTCDate());
+    var cedulaInteresado = $('#id_interesado').val();
+    cedulaInteresado = cedulaInteresado.split("-").join("");
     var interesado = new Interesado(1, $('#fechaNac').val() === "" ? iDate : $('#fechaNac').val(), lugar,
-            $('#id_interesado').val() === "" ? "NA" : $('#id_interesado').val(),
+            cedulaInteresado === "" ? "NA" : cedulaInteresado,
             $('#nombre_interesado').val() === "" ? "NA" : $('#nombre_interesado').val(),
             $('#apellido1_interesado').val() === "" ? "NA" : $('#apellido1_interesado').val(),
             $('#apellido2_interesado').val() === "" ? "NA" : $('#apellido2_interesado').val(),
@@ -85,12 +88,12 @@ function checkActa() {
         errores.push("Debe proveer una identificación para el policía encargado.");
     }
 
-    if ($('#id_policia').val() !== "") {
+    /*if ($('#id_policia').val() !== "") {
         if (!idVerificator($('#id_policia').val(), document.getElementById('ext').checked)) {
             bool = false;
             errores.push("El número de identificación del policía tiene formato incorrecto.");
         }
-    }
+    }*/
 
 //    if ($('#apellido1_interesado').val() === ""){
 //        bool = false;
