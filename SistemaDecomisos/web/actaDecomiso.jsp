@@ -117,16 +117,8 @@ Author     : Mery Zúñiga
                                             </div>
                                         </div>
                                         <div class="form-group status">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nombre_policia">Identificacion del Policía Municipal encargado<span class="required">*</span>
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nombre_policia">Nombre del Policía Municipal encargado<span class="required">*</span>
                                             </label>
-                                            <div class="col-md-6 col-sm-6">
-                                                <label class="radio-inline">
-                                                    <input id="nac" type="radio" name="idP" value="nac" checked="checked"> Nacional<br>
-                                                </label>
-                                                <label class="radio-inline">
-                                                    <input id="ext" type="radio" name="idP" value="ext"> Extranjero<br>
-                                                </label>
-                                            </div>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
                                                 <div id="groupNombrePolicia">
                                                     <input type="text" id="id_policia" class="form-control col-md-7 col-xs-12" required="required">
@@ -154,7 +146,7 @@ Author     : Mery Zúñiga
                                                 <div id="info_test_policia">
                                                     <input type="text" id="info_policia" class="form-control col-md-7 col-xs-12" required="required">
                                                     <span class="fa fa-search form-control-feedback right" aria-hidden="true"></span>
-                                                    
+
                                                 </div>
                                             </div>
                                         </div>
@@ -203,6 +195,14 @@ Author     : Mery Zúñiga
                                         </div>
                                         <div class="form-group status" id="groupIdInteresado">
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_interesado">Identificación del interesado</label>
+                                            <div class="col-md-6 col-sm-6">
+                                                <label class="radio-inline">
+                                                    <input id="nac" type="radio" name="idI" value="nac" checked="checked"> Nacional<br>
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input id="ext" type="radio" name="idI" value="ext"> Extranjero<br>
+                                                </label>
+                                            </div>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
                                                 <input type="text" id="id_interesado" class="form-control col-md-7 col-xs-12">
                                                 <span class="fa fa-indent form-control-feedback right" aria-hidden="true"></span>
@@ -339,7 +339,7 @@ Author     : Mery Zúñiga
 </div>
         <!-- jQuery -->
         <script src="js/jquery.min.js"></script>
-        
+
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script src="js/chosen.jquery.js"></script>
