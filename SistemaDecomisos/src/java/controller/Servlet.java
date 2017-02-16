@@ -103,7 +103,7 @@ public class Servlet extends HttpServlet {
                         res = model.getIdInteresado(actaDecomiso.getInteresado().getIdentificacion());
                         actaDecomiso.getInteresado().setIdInteresado(res);
                     }
-                    res = model.guardarPolicia(actaDecomiso.getPolicia());
+                    //res = model.guardarPolicia(actaDecomiso.getPolicia()); ya no se hace
                     res = model.guardarTestigo(actaDecomiso.getTestigo());
                     int fin = model.ultimaActaDecomiso();
                     if (fin == -1) {
