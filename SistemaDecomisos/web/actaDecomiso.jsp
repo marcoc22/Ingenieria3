@@ -2,7 +2,7 @@
 Document   : actaDecomiso
 Created on : 26-oct-2016, 11:52:35
 Author     : Mery Zúñiga
-akejfklejfkalejfklajelkfj
+aaaaaaaaaaaaa
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
