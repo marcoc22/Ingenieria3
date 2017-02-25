@@ -12,10 +12,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.bind.DatatypeConverter;
 import model.ActaDecomiso;
 import model.*;
 
@@ -38,8 +40,9 @@ public class Servlet extends HttpServlet {
             HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        ServletContext application = getServletContext();
         try (PrintWriter out = response.getWriter()) {
-
+            
             response.setContentType("text/xml");
             RuntimeTypeAdapterFactory<Jsonable> rta = RuntimeTypeAdapterFactory.of(Jsonable.class, "_class")
                     .registerSubtype(Usuario.class, "Usuario")
@@ -123,6 +126,7 @@ public class Servlet extends HttpServlet {
                     }
                     break;
                 case "guardarActa":
+                    
                     json = request.getParameter("actaDecomiso");
                     finalJson = new String(json.getBytes("iso-8859-1"), "UTF-8");
                     actaDecomiso = gson.fromJson(finalJson, ActaDecomiso.class);
@@ -130,26 +134,23 @@ public class Servlet extends HttpServlet {
                     int resFotografia = 0;
                     try {
                         String code_foto = _i.getFotografia().replaceAll(" ", "+");
-                        if (!code_foto.equals("nulo")) {
+                        if (!code_foto.equals("NA")) {
                             String nombre_foto = _i.getIdentificacion() + ".jpg";
-                            byte decoded[] = base64tobyte(code_foto);
+                            byte decoded[] = DatatypeConverter.parseBase64Binary(code_foto);
                             FileOutputStream fos = null;
                             String folderFotos = application.getRealPath("/") + "/Componentes/fotografias/";
                             fos = new FileOutputStream(folderFotos + nombre_foto);
                             fos.write(decoded);
                             fos.close();
                             resFotografia = 1;
+                            if (resFotografia == 1) {
+                                Interesado aaa = new Interesado();
+                                aaa.setFotografia(folderFotos + nombre_foto);
+                            }
                         }
-
                     } catch (Exception ex) {
                         throw new ServletException(ex.getMessage());
                     }
-                    if (resFotografia == 1) {
-                        Interesado aaa;
-                        aaa.fotografias = folderFotos + nombre_foto;
-                    }
-                    //model.guardarInteresado();
-                    
                     //boolean var = model.isInteresado(actaDecomiso.getInteresado());
                     res = model.guardarInteresado(actaDecomiso.getInteresado());
                     if (res != 2) {

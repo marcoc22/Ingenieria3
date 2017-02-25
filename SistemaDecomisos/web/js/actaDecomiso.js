@@ -63,12 +63,15 @@ function enviarActa() {
     var iDate = formatDate(new Date().getUTCDate());
     var cedulaInteresado = $('#id_interesado').val();
     cedulaInteresado = cedulaInteresado.split("-").join("");
+    //class="kv-preview-data file-preview-image"
+    var foto = $('.kv-preview-data').attr('src');
     var interesado = new Interesado(1, $('#fechaNac').val() === "" ? iDate : $('#fechaNac').val(), lugar,
             cedulaInteresado === "" ? "NA" : cedulaInteresado,
             $('#nombre_interesado').val() === "" ? "NA" : $('#nombre_interesado').val(),
             $('#apellido1_interesado').val() === "" ? "NA" : $('#apellido1_interesado').val(),
             $('#apellido2_interesado').val() === "" ? "NA" : $('#apellido2_interesado').val(),
-            "En algun lugar de heredia");
+            "En algun lugar de heredia",
+            foto !== undefined ? foto.replace(/^data\:image\/\w+\;base64\,/, '') : "NA");
     var decomisos = [new Decomiso(5, "a", 1, "xxx"), new Decomiso(6, "a", 1, "xxx")];
     var observaciones = "a";
     var actaDecomiso = new ActaDecomiso(0, policia, testigo, lugar,

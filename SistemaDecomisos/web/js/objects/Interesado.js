@@ -1,5 +1,5 @@
-function Interesado(idInteresado, fechaNacimiento, domicilio, identificacion, nombre, apellido1, apellido2, direccionExacta) {
-    this.Interesado(idInteresado, fechaNacimiento, domicilio, identificacion, nombre, apellido1, apellido2, direccionExacta);
+function Interesado(idInteresado, fechaNacimiento, domicilio, identificacion, nombre, apellido1, apellido2, direccionExacta, fotografia) {
+    this.Interesado(idInteresado, fechaNacimiento, domicilio, identificacion, nombre, apellido1, apellido2, direccionExacta, fotografia);
 }
 
 Interesado.prototype = {
@@ -34,7 +34,8 @@ Interesado.from = function (plain) {
     plain.nombre, 
     plain.apellido1, 
     plain.apellido2, 
-    plain.direccionExacta);
+    plain.direccionExacta,
+    plain.fotografia);
     return interesado;
 };
 
@@ -48,7 +49,8 @@ Interesado.to = function (interesado) {
         nombre : interesado.nombre, 
         apellido1 : interesado.apellido1, 
         apellido2 : interesado.apellido2, 
-        direccionExacta : interesado.direccionExacta
+        direccionExacta : interesado.direccionExacta,
+        fotografia : interesado.fotografia
     };
 };
  
