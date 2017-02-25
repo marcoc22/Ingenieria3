@@ -189,9 +189,9 @@ aaaaaaaaaaaaa
                                         <span class="section">Datos del Interesado</span>
 
                                         <div class="form-group status" id="groupFotoInteresado">           
-                                            <div class="col-md-3 col-sm-3 col-xs-12">
-                                                <div id="kv-avatar-errors-2" class="col-md-6 col-sm-6 col-xs-12" style="width:800px;display:none"></div>
-                                                <div class="kv-avatar col-md-6 col-sm-6 col-xs-12" style="width:200px">
+                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                                <div id="kv-avatar-errors-2" class="center-block" style="width:800px;display:none"></div>
+                                                <div class="kv-avatar center-block" style="width:200px">
                                                     <input id="avatar-2" name="avatar-2" type="file" class="file-loading">
                                                 </div>
 
@@ -199,7 +199,14 @@ aaaaaaaaaaaaa
                                         </div>
                                         <div class="form-group status" id="groupIdInteresado">
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_interesado">Identificación del interesado</label>
-                                            
+                                            <div class="col-md-6 col-sm-6">
+                                                <label class="radio-inline">
+                                                    <input id="nac" type="radio" name="idI" value="nac" checked="checked"> Nacional<br>
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input id="ext" type="radio" name="idI" value="ext"> Extranjero<br>
+                                                </label>
+                                            </div>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
                                                 <input type="text" id="id_interesado" class="form-control col-md-7 col-xs-12">
                                                 <span class="fa fa-indent form-control-feedback right" aria-hidden="true"></span>
