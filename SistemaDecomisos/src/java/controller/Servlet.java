@@ -8,6 +8,7 @@ package controller;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.typeadapters.RuntimeTypeAdapterFactory;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -125,6 +126,30 @@ public class Servlet extends HttpServlet {
                     json = request.getParameter("actaDecomiso");
                     finalJson = new String(json.getBytes("iso-8859-1"), "UTF-8");
                     actaDecomiso = gson.fromJson(finalJson, ActaDecomiso.class);
+                    Interesado _i = actaDecomiso.getInteresado();
+                    int resFotografia = 0;
+                    try {
+                        String code_foto = _i.getFotografia().replaceAll(" ", "+");
+                        if (!code_foto.equals("nulo")) {
+                            String nombre_foto = _i.getIdentificacion() + ".jpg";
+                            byte decoded[] = base64tobyte(code_foto);
+                            FileOutputStream fos = null;
+                            String folderFotos = application.getRealPath("/") + "/Componentes/fotografias/";
+                            fos = new FileOutputStream(folderFotos + nombre_foto);
+                            fos.write(decoded);
+                            fos.close();
+                            resFotografia = 1;
+                        }
+
+                    } catch (Exception ex) {
+                        throw new ServletException(ex.getMessage());
+                    }
+                    if (resFotografia == 1) {
+                        Interesado aaa;
+                        aaa.fotografias = folderFotos + nombre_foto;
+                    }
+                    //model.guardarInteresado();
+                    
                     //boolean var = model.isInteresado(actaDecomiso.getInteresado());
                     res = model.guardarInteresado(actaDecomiso.getInteresado());
                     if (res != 2) {
@@ -215,7 +240,6 @@ public class Servlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
@@ -229,7 +253,6 @@ public class Servlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
@@ -240,7 +263,6 @@ public class Servlet extends HttpServlet {
      *
      * @return a String containing servlet description
      */
-    @Override
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>

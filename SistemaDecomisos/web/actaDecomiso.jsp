@@ -117,7 +117,7 @@ aaaaaaaaaaaaa
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Fecha del decomiso<span class="required">*</span>
                                             </label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <input id="fecha" class="date-picker form-control col-md-7 col-xs-12" type="date" min="2016-01-01" max="2100-01-01"  required>
+                                                <input type="text" id="datepicker">
                                                 <span class="fa fa-calendar form-control-feedback right" aria-hidden="true"></span>
                                                 <span class="alert-dismissible form-control-static"> Ejemplo 10/10/2016</span>
                                             </div>
@@ -194,7 +194,7 @@ aaaaaaaaaaaaa
                                                 <div class="kv-avatar center-block" style="width:200px">
                                                     <input id="avatar-2" name="avatar-2" type="file" class="file-loading">
                                                 </div>
-                                                
+
                                             </div>
                                         </div>
                                         <div class="form-group status" id="groupIdInteresado">
@@ -233,7 +233,7 @@ aaaaaaaaaaaaa
                                                 <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="form-group status"  id="groupFechaNac">
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="fecha_Nac">Fecha de nacimiento del interesado</label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">

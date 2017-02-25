@@ -11,7 +11,8 @@ Interesado.prototype = {
     apellido1 : "",
     apellido2 : "", 
     direccionExacta : "",
-    Interesado: function (idInteresado, fechaNacimiento, domicilio, identificacion, nombre, apellido1, apellido2, direccionExacta) {
+    fotografia : "",
+    Interesado: function (idInteresado, fechaNacimiento, domicilio, identificacion, nombre, apellido1, apellido2, direccionExacta, fotografia) {
         this.idInteresado = idInteresado;
         this.fechaNacimiento = fechaNacimiento;
         this.domicilio = domicilio;
@@ -20,6 +21,7 @@ Interesado.prototype = {
         this.apellido1 = apellido1;
         this.apellido2 = apellido2; 
         this.direccionExacta = direccionExacta;
+        this.fotografia = fotografia;
     }
 };
 

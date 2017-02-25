@@ -2,7 +2,9 @@ var errores = new Array();
 
 $(document).ready(function () {
     $('[data-rel="chosen"],[rel="chosen"]').chosen();
+    var s = document.getElementById('nac').checked;
     $("#id_interesado").mask("9-9999-9999");
+    $("#datepicker").datepicker({ dateFormat: "dd/mm/yy" }).val();
     $('#enviarActa_Dec').click(function () {
         if (checkActa())
             enviarActa();

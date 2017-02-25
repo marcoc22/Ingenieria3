@@ -249,6 +249,11 @@ Proxy.completePolicias = function () {
                 source: names
             });
             var appendTo = $("#id_policia").autocomplete("option", "source");
+            
+            $('#info_policia').autocomplete({
+                source: names
+            });
+            var appendTo2 = $("#info_policia").autocomplete("option", "source");
         }
     });
 };
