@@ -135,6 +135,13 @@ public class Servlet extends HttpServlet {
                     try {
                         String code_foto = _i.getFotografia().replaceAll(" ", "+");
                         if (!code_foto.equals("NA")) {
+                            if(_i.getIdentificacion() == "NA"){
+                                /*
+                                
+                                _i.setIdentificacion("NA" + model.obtenerUltimaFotoNA());
+                                
+                                */
+                            }
                             String nombre_foto = _i.getIdentificacion() + ".jpg";
                             byte decoded[] = DatatypeConverter.parseBase64Binary(code_foto);
                             FileOutputStream fos = null;
