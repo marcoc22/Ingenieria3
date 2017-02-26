@@ -391,6 +391,7 @@ aaaaaaaaaaaaa
         <script src="js/BaseDatos.js"></script>        
         <script src="js/objects/ActaDecomiso.js"></script>
         <script src="js/objects/ActaDonacion.js"></script>
+        <script src="js/objects/ActaDevolucion.js"></script>
         <script src="js/objects/Decomiso.js"></script>
         <script src="js/objects/Distrito.js"></script>
         <script src="js/objects/Funcionario.js"></script>
