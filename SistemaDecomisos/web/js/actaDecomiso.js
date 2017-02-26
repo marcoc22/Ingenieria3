@@ -58,7 +58,7 @@ function enviarActa() {
     else
         testigo = new Testigo(1, " ", " ", " ", " ");
     var lugar = new Lugar(new Distrito(pDistrito.selectedIndex, pDistrito.options[pDistrito.selectedIndex].value), "Por el parque central");
-    var fechaDecomiso = $('#fecha').val();
+    var fechaDecomiso = $('#datepicker').val();
     var horaDecomiso = $('#hora').val();
     var iDate = formatDate(new Date().getUTCDate());
     var cedulaInteresado = $('#id_interesado').val();
