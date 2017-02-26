@@ -69,6 +69,7 @@ public class Servlet extends HttpServlet {
             List<Funcionario> funcionarios;
             List<Policia> policias;
             List<Usuario> usuarios;
+            List<Decomiso> decomisos;
             switch (accion) {
                 case "userLogin":
                     if (model == null) {
@@ -225,6 +226,13 @@ public class Servlet extends HttpServlet {
                     usuario = gson.fromJson(json, Usuario.class);
                     res = model.guardarUsuario(usuario);
                     out.write(res.toString());// Se envía el objeto Usuario como json al cliente
+                    break;
+                    case "listadoDecomisos":
+                    String fechaInicial = request.getParameter("fechaInicial");
+                    String fechaFinal = request.getParameter("fechaFinal");
+                    decomisos = model.listadoDecomisos(fechaInicial,fechaFinal);
+                    json = gson.toJson(decomisos);
+                    out.write(json);
                     break;
             }
         } catch (Exception e) {

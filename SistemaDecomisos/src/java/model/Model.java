@@ -595,6 +595,34 @@ public class Model {
         }
         return id;
     }
+    public List<Decomiso> listadoDecomisos(String fechaInicial,String fechaFinal) throws SQLException {
+        Connection con = null;
+        List<Decomiso> lista = new ArrayList<Decomiso>();
+        try {
+            con = Pool.getConnection();
+            PreparedStatement pstmt = null;
+            ResultSet rs = null;
+            if (con != null) {
+                String sql = "sentencia";
+              
+                pstmt = con.prepareStatement(sql);
+                rs = pstmt.executeQuery();
+                while (rs.next()) {
+                    lista.add(new Decomiso());//cargar las columnas aqui
+                }
+            }
 
+        } catch (SQLException e) {
+            System.out.println("error en sentencia sql " + e.getMessage());
+            lista = null;
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException ex) {
+                lista = null;
+            }
+        }
+        return lista;
+    }
 
 }

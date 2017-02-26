@@ -214,9 +214,7 @@ Proxy.actaDecomiso = function (criterio) {
     $.ajax({
         url: "/SistemaDecomisos/Servlet?action=guardarActa",
         type: "POST",
-        data: {
-            actaDecomiso: ns
-        },
+        data: "actaDecomiso="+ns,
         dataType: 'json',
         contentType: "application/x-www-form-urlencoded",
         success: function (data) {
@@ -305,4 +303,23 @@ Proxy.actaDevolucion = function (criterio) {
             }
         }
     });
+    
+    
+    Proxy.listadoDecomisos = function (fechaInicial,fechaFinal) {
+    
+    $.ajax({
+        url: "/SistemaDecomisos/Servlet?action=listadoDecomisos",
+        type: "POST",
+        data: "fechaInicial=" + fechaInicial + "&fechaFinal="+fechaFinal,
+        dataType: 'json',
+        contentType: "application/x-www-form-urlencoded",
+        success: function (data) {
+            decomisos = new Contenedor();
+            decomisos.items = data;
+            $('#empleadosTable').dataTable().fnDestroy();
+            $('#empleadosTable').dataTable();
+            //callTableTools();
+        }
+    });
+};
 };
