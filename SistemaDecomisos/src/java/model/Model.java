@@ -413,7 +413,8 @@ public class Model {
                         + "'" + interesado.getApellido1() + "',"
                         + "'" + interesado.getApellido2() + "',"
                         + "'" + sdf.format(interesado.getFechaNacimiento()) + "',"
-                        + "'" + interesado.getDomicilio().getDireccionExacta() + "')}";
+                        + "'" + interesado.getDomicilio().getDireccionExacta() + "',"
+                        + "'" + interesado.getFotografia() + ")}";
                 pstmt = con.prepareCall(sql);
 
                 pstmt.executeUpdate();
