@@ -211,6 +211,7 @@ Proxy.guardarUsuario = function (criterio) {
 Proxy.actaDecomiso = function (criterio) {
     var s = ActaDecomiso.to(JSON.parse(criterio));
     var ns = JSON.stringify(s, replacer);
+    
     $.ajax({
         url: "/SistemaDecomisos/Servlet?action=guardarActa",
         type: "POST",
