@@ -254,17 +254,19 @@ public class Model {
         }
         return res;
     }
-    public int guardarActaDonacion(ActaDonacion acta) throws SQLException {
+    
+    //{call prc_ins_adonacion('1','ahda','1','1')}
+    public int guardarActaDonacion(ActaDonacion actaDon) throws SQLException {
         Connection con = null;
         int res = 0;
         try{
             con = Pool.getConnection();
             CallableStatement pstmt = null;
             if(con != null) { 
-                String sql = "{call prc_ins_adonacion('" + acta.getIdDonacion()+ "',"
-                        + "'" + acta.getInstitucion() + "',"
-                        + "'" + acta.getPolicia().getIdPolicia() + "',"
-                        + "'" + acta.getDecomiso().getIdDecomiso()
+                String sql = "{call prc_ins_adonacion('" + actaDon.getIdDonacion()+ "',"
+                        + "'" + actaDon.getInstitucion() + "',"
+                        + "'" + actaDon.getPolicia().getIdPolicia() + "',"
+                        + "'" + actaDon.getDecomiso().getIdDecomiso()
                         + "')}";
                 pstmt = con.prepareCall(sql);
                 pstmt.executeUpdate();
@@ -281,7 +283,40 @@ public class Model {
         }
         return res;
     }
-    public int guardarActaDevolucion(ActaDevolucion actaDevolucion) {
+    
+    public int guardarActaDestruccion(ActaDestruccion actaDestruccion) throws SQLException{
+        Connection con = null;
+        int res = 0;
+        try {
+            con = Pool.getConnection();
+            CallableStatement pstmt = null;
+            if (con != null) {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy");
+                String sql = "{call prc_ins_adestruccion('" + actaDestruccion.getIdDestruccion()+ "',"
+                        + "'" + sdf.format(actaDestruccion.getFecha()) + "',"
+                      //  + "'" + actaDestruccion.getPolicia().getIdPolicia() + "',"
+                        + "'" + actaDestruccion.getTestigo1().getIdTestigo()+ "',"
+                        + "'" + actaDestruccion.getTestigo2().getIdTestigo()+ "',"
+                        + "'" + actaDestruccion.getLugar().getDireccionExacta()+ "',"
+                        + "'" + actaDestruccion.getEncargado()+ "',"
+                        + "'" + actaDestruccion.getActaDecomiso().getIdDecomiso()
+                        + "')}";
+                pstmt = con.prepareCall(sql);
+                pstmt.executeUpdate();
+                res = 2;
+            }
+        } catch (SQLException e) {
+            res = 1;
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException ex) {
+                res = 1;
+            }
+        }
+        return res;
+    }
+    public int guardarActaDevolucion(ActaDevolucion actaDevolucion) throws SQLException{
         Connection con = null;
         int res = 0;
         try {
@@ -413,8 +448,7 @@ public class Model {
                         + "'" + interesado.getApellido1() + "',"
                         + "'" + interesado.getApellido2() + "',"
                         + "'" + sdf.format(interesado.getFechaNacimiento()) + "',"
-                        + "'" + interesado.getDomicilio().getDireccionExacta() + "',"
-                        + "'" + interesado.getFotografia() + ")}";
+                        + "'" + interesado.getDomicilio().getDireccionExacta() + "')}";
                 pstmt = con.prepareCall(sql);
 
                 pstmt.executeUpdate();
@@ -477,7 +511,7 @@ public class Model {
             ResultSet rs = null;
             if (con != null) {
 
-                String sql = "{call prc_ins_test('" + testigo.getNombre() + "',"
+                String sql = "{call prc_ins_test('"+ testigo.getNombre() + "',"
                         + "'" + testigo.getApellido1() + "',"
                         + "'" + testigo.getApellido2()
                         + "')}";
@@ -596,34 +630,6 @@ public class Model {
         }
         return id;
     }
-    public List<Decomiso> listadoDecomisos(String fechaInicial,String fechaFinal) throws SQLException {
-        Connection con = null;
-        List<Decomiso> lista = new ArrayList<Decomiso>();
-        try {
-            con = Pool.getConnection();
-            PreparedStatement pstmt = null;
-            ResultSet rs = null;
-            if (con != null) {
-                String sql = "sentencia";
-              
-                pstmt = con.prepareStatement(sql);
-                rs = pstmt.executeQuery();
-                while (rs.next()) {
-                    lista.add(new Decomiso());//cargar las columnas aqui
-                }
-            }
 
-        } catch (SQLException e) {
-            System.out.println("error en sentencia sql " + e.getMessage());
-            lista = null;
-        } finally {
-            try {
-                con.close();
-            } catch (SQLException ex) {
-                lista = null;
-            }
-        }
-        return lista;
-    }
 
 }
