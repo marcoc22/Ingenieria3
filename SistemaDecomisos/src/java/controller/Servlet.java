@@ -66,10 +66,12 @@ public class Servlet extends HttpServlet {
             ActaDonacion actaDonacion;
             ActaDevolucion actaDevolucion;
             Usuario usuario;
+            Interesado interesado;
             List<Funcionario> funcionarios;
             List<Policia> policias;
             List<Usuario> usuarios;
             List<Decomiso> decomisos;
+            List<Interesado> interesados;
             switch (accion) {
                 case "userLogin":
                     if (model == null) {
@@ -223,6 +225,11 @@ public class Servlet extends HttpServlet {
                     json = gson.toJson(policias);
                     out.write(json);
                     break;
+                case "listadoInteresados":
+                    interesados = model.listadoInteresados();
+                    json = gson.toJson(interesados);
+                    out.write(json);
+                    break;
                 case "listadoUsuarios":
                     usuarios = model.listadoUsuarios();
                     json = gson.toJson(usuarios);
@@ -234,11 +241,17 @@ public class Servlet extends HttpServlet {
                     res = model.guardarUsuario(usuario);
                     out.write(res.toString());// Se envía el objeto Usuario como json al cliente
                     break;
-                    case "listadoDecomisos":
+                case "listadoDecomisos":
                     String fechaInicial = request.getParameter("fechaInicial");
                     String fechaFinal = request.getParameter("fechaFinal");
                     decomisos = model.listadoDecomisos(fechaInicial,fechaFinal);
                     json = gson.toJson(decomisos);
+                    out.write(json);
+                    break;
+                case "getInteresado":
+                    String cedula = request.getParameter("cedula");
+                    interesado = model.getInteresado(cedula);
+                    json = gson.toJson(interesado);
                     out.write(json);
                     break;
             }

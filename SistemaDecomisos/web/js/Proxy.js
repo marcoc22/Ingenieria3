@@ -158,6 +158,48 @@ Proxy.listadoUsuarios = function () {
         }
     });
 };
+
+//************************************************************************
+Proxy.listadoInteresados = function () {
+
+    $.ajax({
+        url: "/SistemaDecomisos/Servlet?action=listadoInteresados",
+        type: "POST",
+        dataType: 'json',
+        contentType: "application/x-www-form-urlencoded",
+        success: function (data) {
+            /*usuarios = new Contenedor();
+            usuarios.items = data;
+            usuariosTable = document.getElementById("usuariosTable");
+            store(usuariosTable.modelId, usuarios);
+            Table.refresh(usuariosTable, "");
+            */
+           dibujarTabla(data);
+        }
+    });
+};
+
+Proxy.getInteresado = function (idInteresado) {
+
+    $.ajax({
+        url: "/SistemaDecomisos/Servlet?action=getInteresado",
+        type: "POST",
+        data: "cedula=" + idInteresado,
+        dataType: 'json',
+        contentType: "application/x-www-form-urlencoded",
+        success: function (data) {
+            /*usuarios = new Contenedor();
+            usuarios.items = data;
+            usuariosTable = document.getElementById("usuariosTable");
+            store(usuariosTable.modelId, usuarios);
+            Table.refresh(usuariosTable, "");
+            */           
+            displayInteresado(data);
+        }
+    });
+};
+//*************************************************************************
+
 Proxy.guardarUsuario = function (criterio) {
 
     $.ajax({
